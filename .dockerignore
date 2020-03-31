@@ -1,0 +1,7 @@
+./node_modules
+./test
+.eslintrc
+.gitignore
+.LICENSE.md
+nodemon.json
+README.md

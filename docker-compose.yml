@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  conduit_nats:
+    image: nats
+    ports:
+      - 4222:4222
+  conduit_mongo:
+    image: conduit_mongo
+    ports:
+      - 27017:27017
+  conduit_gateway:
+    context: Dockerfile
+    depends_on:
+      - conduit_mongo
+      - conduit_nats
+    ports:
+      - 3000:3000
+  conduit_article_service:
+    context: ./src/graphql/services/Article/Dockerfile
+    depends_on:
+      - conduit_gateway
+  conduit_comment_service:
+    context: ./src/graphql/services/Comment/Dockerfile
+    depends_on:
+      - conduit_gateway
