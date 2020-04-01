@@ -14,8 +14,7 @@ const gateway = new GraphQLGateway(
     {
         locals: {
             nodes,
-            enums: appliances.enums,
-            directives: appliances.directives
+            ...appliances
         },
         services: { nodes: ["Article", "Comment"] }
     },
