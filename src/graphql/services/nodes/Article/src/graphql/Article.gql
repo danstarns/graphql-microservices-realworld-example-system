@@ -1,0 +1,102 @@
+type Article {
+    id: ID!
+    author: User!
+    body: String!
+    comments: [Comment!]!
+    description: String!
+    favoritesCount: Int!
+    slug: String!
+    tagList: [String!]!
+    title: String!
+    viewerHasFavorited: Boolean!
+    updatedAt: ISO8601DateTime!
+    createdAt: ISO8601DateTime!
+}
+
+type ArticleEdge {
+    cursor: String!
+    node: Article
+}
+
+type ArticleConnection {
+    edges: [ArticleEdge]
+    pageInfo: PageInfo!
+}
+
+type CreateArticlePayload {
+    article: Article
+    errors: [UserError!]!
+}
+
+type DeleteArticlePayload {
+    article: Article!
+}
+
+input DeleteArticleInput {
+    id: ID!
+}
+
+input FavoriteArticleInput {
+    id: ID!
+}
+
+type FavoriteArticlePayload {
+    article: Article
+}
+
+input UpdateArticleInput {
+    id: ID!
+    title: String!
+    description: String!
+    body: String!
+    tagList: [String!]!
+}
+
+type UpdateArticlePayload {
+    article: Article
+    errors: [UserError!]!
+}
+
+input UnfavoriteArticleInput {
+    id: ID!
+}
+
+type UnfavoriteArticlePayload {
+    article: Article
+}
+
+input CreateArticleInput {
+    title: String!
+    description: String!
+    body: String!
+    tagList: [String!]!
+}
+
+type Query {
+    article(slug: String!): Article
+    tags: [String!]!
+    viewer: Viewer
+
+    articles(
+        first: Int = 10
+        after: String = "1"
+        tag: String
+        forUser: Boolean
+        feed: Boolean
+        ids: [String]
+    ): ArticleConnection!
+}
+
+type Mutation {
+    createArticle(input: CreateArticleInput!): CreateArticlePayload @Auth(input: {required: true})
+    deleteArticle(input: DeleteArticleInput!): DeleteArticlePayload @Auth(input: {required: true})
+    updateArticle(input: UpdateArticleInput!): UpdateArticlePayload @Auth(input: {required: true})
+
+    favoriteArticle(
+        input: FavoriteArticleInput!
+    ): FavoriteArticlePayload @Auth(input: {required: true})
+
+    unfavoriteArticle(
+        input: UnfavoriteArticleInput!
+    ): UnfavoriteArticlePayload @Auth(input: {required: true})
+}
