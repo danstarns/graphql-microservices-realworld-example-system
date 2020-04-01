@@ -1,0 +1,97 @@
+type User {
+    id: ID!
+    image: String
+    username: String!
+    bio: String
+    email: String!
+    followedByViewer: Boolean!  
+
+    articles(
+      first: Int = 10
+      after: String = "1"
+    ): ArticleConnection! 
+
+    favoriteArticles(
+      first: Int = 10
+      after: String = "1"
+    ): ArticleConnection! 
+
+    followers: FollowersConnection!
+}
+
+input CreateUserInput {
+    username: String!
+    email: String!
+    password: String!
+}
+
+type CreateUserPayload {
+    errors: [UserError!]!
+    user: User
+}
+
+input SignInUserInput {
+    email: String!
+    password: String!
+}
+
+type SignInUserPayload {
+    errors: [UserError!]!
+    token: String
+    viewer: Viewer
+}
+
+input UnfollowUserInput {
+    id: ID!
+}
+
+type UnfollowUserPayload {
+    user: User
+}
+
+input UpdateUserInput {
+    email: String!
+    username: String!
+    bio: String
+    image: String
+    password: String
+}
+
+type UpdateUserPayload {
+    errors: [UserError!]!
+    user: User
+}
+
+type UserEdge {
+    cursor: String!
+    node: User
+}
+
+type UserError {
+    message: String!
+    path: String
+}
+
+type FollowersConnection {
+    totalCount: Int!
+}
+
+input FollowUserInput {
+    id: ID!
+}
+
+type FollowUserPayload {
+    user: User
+}
+
+type Query {
+    user(username: String!): User
+}
+
+type Mutation {
+    createUser(input: CreateUserInput!): CreateUserPayload
+    signInUser(input: SignInUserInput!): SignInUserPayload
+    followUser(input: FollowUserInput!): FollowUserPayload @Auth(input: {required: true})
+    unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload @Auth(input: {required: true})
+    updateUser(input: UpdateUserInput!): UpdateUserPayload @Auth(input: {required: true})
+}
