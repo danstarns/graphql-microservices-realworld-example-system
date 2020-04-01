@@ -5,17 +5,14 @@ const { ApolloServer } = require("apollo-server-express");
 const { express: voyagerMiddleware } = require("graphql-voyager/middleware");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { nodes, appliances } = require("./graphql/locals/index.js");
+const locals = require("./graphql/locals/index.js");
 const debug = require("./debug.js")("GraphQL: ");
 const { NATS_URL, PORT, NODE_ENV } = require("./config.js");
 const { decodeJWT } = require("./util/index.js");
 
 const gateway = new GraphQLGateway(
     {
-        locals: {
-            nodes,
-            ...appliances
-        },
+        locals,
         services: { nodes: ["Article", "Comment"] }
     },
     { nodeID: "gateway", transporter: NATS_URL }
