@@ -74,6 +74,7 @@ input CreateArticleInput {
 
 type Query {
     article(slug: String!): Article
+    article(id: ID!): Article # TODO test
     tags: [String!]!
     viewer: Viewer
 
