@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const gql = require("graphql-tag");
 
 async function articles(root, { first, after }, { injections: { execute } }) {
     const { data, errors } = await execute(

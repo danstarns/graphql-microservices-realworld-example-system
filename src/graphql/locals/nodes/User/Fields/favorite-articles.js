@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const gql = require("graphql-tag");
 
 async function favoriteArticles(
     root,
@@ -39,7 +39,9 @@ async function favoriteArticles(
         }
     `,
         {
-            variables: { ids: root.favorites.articles.map(x => x.toString()) },
+            variables: {
+                ids: root.favorites.articles.map((x) => x.toString())
+            },
             context: { user: root.id }
         }
     );
