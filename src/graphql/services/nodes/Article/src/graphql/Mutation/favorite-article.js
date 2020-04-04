@@ -1,6 +1,11 @@
-const { Article, User } = require("../../../../models/index.js");
+const gql = require("graphql-tag");
+const { Article } = require("../../models/index.js");
 
-async function favoriteArticle(root, { input: { id } }, { user }) {
+async function favoriteArticle(
+    root,
+    { input: { id } },
+    { user, injections: { execute } }
+) {
     try {
         const article = await Article.findById(id);
 
@@ -8,9 +13,27 @@ async function favoriteArticle(root, { input: { id } }, { user }) {
             throw new Error("Article not found");
         }
 
-        await User.findByIdAndUpdate(user, {
-            $addToSet: { "favorites.articles": article.id }
-        });
+        const { errors } = await execute(
+            gql`
+                mutation($article: ID!) {
+                    pushFavoriteArticle(article: $article) {
+                        id
+                    }
+                }
+            `,
+            {
+                variables: {
+                    article: article._id.toString()
+                },
+                context: {
+                    user
+                }
+            }
+        );
+
+        if (errors) {
+            throw new Error(errors[0].message);
+        }
 
         return {
             article

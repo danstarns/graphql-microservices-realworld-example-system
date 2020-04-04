@@ -17,7 +17,7 @@ type User {
     ): ArticleConnection! 
 
     followers: FollowersConnection!
-    following: FollowersConnection!
+    following: FollowersConnection! # TODO test
 }
 
 input CreateUserInput {
@@ -98,4 +98,6 @@ type Mutation {
     followUser(input: FollowUserInput!): FollowUserPayload @Auth(input: {required: true})
     unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload @Auth(input: {required: true})
     updateUser(input: UpdateUserInput!): UpdateUserPayload @Auth(input: {required: true})
+    pushFavoriteArticle(article: ID!): User @Auth(input: {required: true}) # TODO test
+    pullFavoriteArticle(article: ID!): User @Auth(input: {required: true}) # TODO test
 }
