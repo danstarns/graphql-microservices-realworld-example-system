@@ -1,6 +1,6 @@
 const debug = require("debug");
 
-const prefix = "@Conduit: ";
+const prefix = "@Conduit-Comment-Service: ";
 
 /**
  * @param {string} namespace
