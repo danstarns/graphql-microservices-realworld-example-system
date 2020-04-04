@@ -17,6 +17,7 @@ type User {
     ): ArticleConnection! 
 
     followers: FollowersConnection!
+    following: FollowersConnection!
 }
 
 input CreateUserInput {
@@ -74,6 +75,7 @@ type UserError {
 
 type FollowersConnection {
     totalCount: Int!
+    nodes: [User]
 }
 
 input FollowUserInput {

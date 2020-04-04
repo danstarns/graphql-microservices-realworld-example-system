@@ -1,13 +1,35 @@
-const { Article, User } = require("../../models/index.js");
+const gql = require("graphql-tag");
+const { Article } = require("../../models/index.js");
 
 async function articles(
     root,
     { first = 10, after = "1", tag, forUser, feed, ids },
-    { user }
+    { user, injections: { execute } }
 ) {
     const query = {};
 
-    user = await User.findById(user);
+    const { data, errors } = await execute(
+        gql`
+        {
+            user: userById(
+               id: ${user}
+            ) {
+                id
+                email
+                following {
+                    id
+                }
+            }
+        }
+    `,
+        { context: { user } }
+    );
+
+    if (errors && errors.length) {
+        throw new Error(errors[0].message);
+    }
+
+    user = data.user;
 
     if (tag) {
         query.tagList = tag;
@@ -18,7 +40,7 @@ async function articles(
     }
 
     if (feed) {
-        query.author = { $in: user.following };
+        query.author = { $in: user.following.map((x) => x.id) };
     }
 
     if (ids) {
