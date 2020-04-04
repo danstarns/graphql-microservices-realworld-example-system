@@ -4,7 +4,9 @@
   "description": "Node.js powered distributed GraphQL schema built with modules, authentication, pagination, and more.",
   "main": "./src/index.js",
   "scripts": {
-    "start": "cross-env node -r dotenv/config ./src/index.js"
+    "start": "cross-env node -r dotenv/config ./src/index.js",
+    "test": "docker-compose -f ./docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from test_suite",
+    "test:suite": "cross-env ./node_modules/.bin/mocha -r dotenv/config --exit \"./{,!(node_modules)/**/}*.test.js\" --timeout=1000000"
   },
   "keywords": [
     "graphql",
@@ -58,11 +60,14 @@
     "nats": "^1.4.8"
   },
   "devDependencies": {
+    "apollo-server-testing": "^2.11.0",
+    "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.2",
+    "mocha": "^7.1.1",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1"
   }

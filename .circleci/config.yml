@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@1.1.6
+
+jobs:
+  test:
+    docker:
+      - image: mongo
+        ports:
+          - 27017:27017
+      - image: nats
+        ports:
+          - 4222:4222
+      - image: 
+        b
+      - image: circleci/node:12.16.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm ci
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm run test
+
+workflows:
+  version: 2
+  master_any:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /master/

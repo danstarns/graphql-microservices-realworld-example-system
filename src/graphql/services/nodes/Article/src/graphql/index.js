@@ -1,6 +1,6 @@
 const { GraphQLNode } = require("idio-graphql");
 const path = require("path");
-const { NATS_URL } = require("../config.js");
+const { NATS_URL, NODE_ENV } = require("../config.js");
 const Query = require("./Query/index.js");
 const Mutation = require("./Mutation/index.js");
 const Fields = require("./Fields/index.js");
@@ -21,7 +21,11 @@ const Article = new GraphQLNode({
 async function start() {
     debug("Starting");
 
-    await Article.serve({ gateway: "conduit_gateway", transporter: NATS_URL });
+    await Article.serve({
+        gateway: "conduit_gateway",
+        transporter: NATS_URL,
+        logLevel: NODE_ENV === "test" ? "error" : "info"
+    });
 
     debug("Started");
 }
