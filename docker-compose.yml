@@ -6,21 +6,24 @@ services:
     ports:
       - 4222:4222
   conduit_mongo:
-    image: conduit_mongo
+    image: mongo
     ports:
       - 27017:27017
   conduit_gateway:
-    context: Dockerfile
+    build:
+      context: .
     depends_on:
       - conduit_mongo
       - conduit_nats
     ports:
       - 3000:3000
   conduit_article_service:
-    context: ./src/graphql/services/Article/Dockerfile
+    build:
+      context: ./src/graphql/services/nodes/Article
     depends_on:
       - conduit_gateway
   conduit_comment_service:
-    context: ./src/graphql/services/Comment/Dockerfile
+    build:
+      context: ./src/graphql/services/nodes/Comment
     depends_on:
       - conduit_gateway

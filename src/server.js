@@ -15,7 +15,7 @@ const gateway = new GraphQLGateway(
         locals,
         services: { nodes: ["Article", "Comment"] }
     },
-    { nodeID: "gateway", transporter: NATS_URL }
+    { nodeID: "conduit_gateway", transporter: NATS_URL }
 );
 
 const app = express();
