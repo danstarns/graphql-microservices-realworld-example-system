@@ -21,7 +21,7 @@
   "homepage": "https://github.com/danstarns/graphql-microservices-realworld-example-system#readme",
   "dependencies": {
     "debug": "^4.1.1",
-    "idio-graphql": "^3.1.9",
+    "idio-graphql": "^3.1.13",
     "mongoose": "^5.9.7",
     "mongoose-paginate-v2": "^1.3.9"
   },

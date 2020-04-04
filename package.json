@@ -4,7 +4,7 @@
   "description": "Node.js powered distributed GraphQL schema built with modules, authentication, pagination, and more.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env node -r dotenv/config ./src/index.js"
   },
   "keywords": [
     "graphql",
@@ -51,10 +51,11 @@
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^4.0.7",
     "graphql-voyager": "^1.0.0-rc.29",
-    "idio-graphql": "^3.1.9",
+    "idio-graphql": "^3.1.13",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7",
-    "mongoose-paginate-v2": "^1.3.9"
+    "mongoose-paginate-v2": "^1.3.9",
+    "nats": "^1.4.8"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
