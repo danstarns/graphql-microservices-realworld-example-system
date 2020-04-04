@@ -76,7 +76,7 @@ const Viewer = new GraphQLType({
                     }
                 }
             `,
-                { variables: { id }, context: { user } }
+                { context: { user } }
             );
 
             if (errors && errors.length) {
