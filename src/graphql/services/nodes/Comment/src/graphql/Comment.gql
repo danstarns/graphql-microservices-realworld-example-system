@@ -25,6 +25,10 @@ type DeleteCommentPayload {
     comment: Comment
 }
 
+type Query {
+    articleComments(article: ID!): [Comment] # TODO test
+}
+
 type Mutation {
     addComment(input: AddCommentInput!): AddCommentPayload @Auth(input: {required: true})
     deleteComment(input: DeleteCommentInput!): DeleteCommentPayload @Auth(input: {required: true})
