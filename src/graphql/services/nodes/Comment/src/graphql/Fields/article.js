@@ -27,7 +27,7 @@ async function article(root, args, { injections: { execute } }) {
         throw new Error(errors[0].message);
     }
 
-    return data.article;
+    return data.articleById;
 }
 
 module.exports = article;
