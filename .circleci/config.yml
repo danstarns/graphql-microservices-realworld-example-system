@@ -26,13 +26,13 @@ jobs:
           command: docker run --publish 27017:27017 --detach --name conduit_mongo mongo --network conduit_network
       - run:
           name: Build Article
-          command: docker build -f Dockerfile.test -t article ./src/graphql/services/nodes/Article/
+          command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t article ./src/graphql/services/nodes/Article/
       - run:
           name: Start Article
           command: docker run --detach --name conduit_article article --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Article-Service:*' -e NODE_ENV='test'
       - run:
           name: Build Comment
-          command: docker build -f Dockerfile.test -t comment ./src/graphql/services/nodes/Comment/
+          command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment ./src/graphql/services/nodes/Comment/
       - run:
           name: Start Comment
           command: docker run --detach --name conduit_comment comment --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Comment-Service:*' -e NODE_ENV='test'
