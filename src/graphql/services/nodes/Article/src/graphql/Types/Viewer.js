@@ -57,26 +57,20 @@ const Viewer = new GraphQLType({
 
             return data.articles;
         },
-        user: async (
-            { user: { id } },
-            args,
-            { user, injections: { execute } }
-        ) => {
+        user: async ({ user: { id } }, args, { injections: { execute } }) => {
             const { data, errors } = await execute(
                 gql`
-                {
-                    user: userById(
-                       id: ${id}
-                    ) {
-                        id
-                        image
-                        username
-                        bio
-                        email
+                    query($id: ID!) {
+                        user: userById(id: $id) {
+                            id
+                            image
+                            username
+                            bio
+                            email
+                        }
                     }
-                }
-            `,
-                { context: { user } }
+                `,
+                { variables: { id } }
             );
 
             if (errors && errors.length) {
