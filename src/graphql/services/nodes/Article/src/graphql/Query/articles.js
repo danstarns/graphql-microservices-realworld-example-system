@@ -8,8 +8,9 @@ async function articles(
 ) {
     const query = {};
 
-    const { data, errors } = await execute(
-        gql`
+    if (user) {
+        const { data, errors } = await execute(
+            gql`
         {
             user: userById(
                id: ${user}
@@ -22,14 +23,15 @@ async function articles(
             }
         }
     `,
-        { context: { user } }
-    );
+            { context: { user } }
+        );
 
-    if (errors && errors.length) {
-        throw new Error(errors[0].message);
+        if (errors && errors.length) {
+            throw new Error(errors[0].message);
+        }
+
+        user = data.user;
     }
-
-    user = data.user;
 
     if (tag) {
         query.tagList = tag;
