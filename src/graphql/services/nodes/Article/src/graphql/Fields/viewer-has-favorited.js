@@ -5,6 +5,10 @@ async function viewerHasFavorited(
     args,
     { user, injections: { execute } }
 ) {
+    if (!user) {
+        return false;
+    }
+
     const { data, errors } = await execute(
         gql`
             query($id: ID!) {

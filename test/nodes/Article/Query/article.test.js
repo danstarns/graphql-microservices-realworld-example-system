@@ -30,7 +30,7 @@ describe("Article.Query.article", () => {
         await Promise.all(collections.map((collection) => collection.drop()));
     });
 
-    it("should find a document by slug", async () => {
+    it("should find a article by slug", async () => {
         const user = await User.create({
             image: "http://cat.com",
             username: "Tester",
