@@ -29,19 +29,19 @@ jobs:
           command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t article ./src/graphql/services/nodes/Article/
       - run:
           name: Start Article
-          command: docker run --network conduit_network --detach --name conduit_article article -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Article-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --detach --name conduit_article -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Article-Service:*' -e NODE_ENV='test' article
       - run:
           name: Build Comment
           command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment ./src/graphql/services/nodes/Comment/
       - run:
           name: Start Comment
-          command: docker run --network conduit_network --detach --name conduit_comment comment -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Comment-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --detach --name conduit_comment -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Comment-Service:*' -e NODE_ENV='test' comment
       - run:
           name: Build Gateway
           command: docker build -f ./Dockerfile.test -t gateway .
       - run:
           name: Start Gateway and test
-          command: docker run --network conduit_network --name conduit_gateway gateway -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --name conduit_gateway -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test' gateway
 
 workflows:
   version: 2
