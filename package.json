@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env node -r dotenv/config ./src/index.js",
     "test": "docker-compose -f ./docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from test_suite",
-    "test:ci": "docker-compose -f ./docker-compose.test.ci.yml up --build --abort-on-container-exit --exit-code-from test_suite",
+    "test:ci": "docker-compose -f ./docker-compose.ci.yml up --build --abort-on-container-exit --exit-code-from test_suite",
     "test:suite": "cross-env ./node_modules/.bin/mocha -r dotenv/config --exit \"./{,!(node_modules)/**/}*.test.js\" --timeout=1000000"
   },
   "keywords": [
