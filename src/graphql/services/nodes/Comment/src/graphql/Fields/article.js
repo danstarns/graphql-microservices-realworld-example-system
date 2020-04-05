@@ -4,7 +4,7 @@ async function article(root, args, { injections: { execute } }) {
     const { data, errors } = await execute(
         gql`
             query($id: ID!) {
-                article(id: $id) {
+                articleById(id: $id) {
                     id
                     body
                     description

@@ -9,9 +9,11 @@ async function viewerHasFavorited(
         gql`
             query($id: ID!) {
                 userById(id: $id) {
-                    favorites {
-                        articles {
-                            id
+                    favoriteArticles {
+                        edges {
+                            node {
+                                id
+                            }
                         }
                     }
                 }
@@ -28,11 +30,11 @@ async function viewerHasFavorited(
         throw new Error(errors[0].message);
     }
 
-    if (!data.userById) {
+    if (!data.favoriteArticles) {
         return false;
     }
 
-    const articles = data.userById.favorites.articles.map((x) => x.id);
+    const articles = data.favoriteArticles.edges.map((x) => x.node.id);
 
     if (articles.includes(id)) {
         return true;
