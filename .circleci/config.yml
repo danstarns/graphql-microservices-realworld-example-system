@@ -9,16 +9,58 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: npm ci
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm run test:ci
+      - run: 
+          name: Start Docker Network
+          command: docker network create conduit_network
+      - run:
+          name: Start Nats
+          command: |
+          docker image pull nats
+          docker run \
+          --publish 4222:4222 \
+          --detach --name conduit_nats nats \
+          --network conduit_network
+      - run:
+          name: Start Mongo
+          command: |
+          docker image pull mongo
+          docker run \
+          --publish 27017:27017 \
+          --detach --name conduit_mongo mongo \
+          --network conduit_network
+      - run:
+          name: Start Article
+          command: |
+          docker build -f ./src/graphql/services/nodes/Article/Dockerfile.test -t article
+          docker run \ 
+          --detach --name conduit_article article \
+          --network conduit_network \
+          -e NATS_URL='nats://conduit_nats:4222' \
+          -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' \
+          -e DEBUG='@Conduit-Article-Service:*' \
+          -e NODE_ENV='test'
+      - run:
+          name: Start Comment
+          command: |
+          docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t article
+          docker run \ 
+          --detach --name conduit_comment comment \
+          --network conduit_network \
+          -e NATS_URL='nats://conduit_nats:4222' \
+          -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' \
+          -e DEBUG='@Conduit-Comment-Service:*' \ 
+          -e NODE_ENV='test'
+      - run:
+          name: Start Gateway and test
+          command: |
+          docker build -f ./Dockerfile.test -t gateway
+          docker run \ 
+          --detach --name conduit_gateway gateway \
+          --network conduit_network \
+          -e NATS_URL='nats://conduit_nats:4222' \
+          -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' \
+          -e DEBUG='@Conduit-Gateway-Service:*' \
+          -e NODE_ENV='test'
 
 workflows:
   version: 2
