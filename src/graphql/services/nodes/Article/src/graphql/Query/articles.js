@@ -42,7 +42,7 @@ async function articles(
     }
 
     if (feed) {
-        query.author = { $in: user.nodes.map((x) => x.id) };
+        query.author = { $in: user.following.nodes.map((x) => x.id) };
     }
 
     if (ids) {
