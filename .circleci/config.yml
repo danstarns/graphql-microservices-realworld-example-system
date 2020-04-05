@@ -41,7 +41,7 @@ jobs:
           command: docker build -f ./Dockerfile.test -t gateway .
       - run:
           name: Start Gateway and test
-          command: docker run --detach --name conduit_gateway gateway --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test'
+          command: docker run --name conduit_gateway gateway --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test'
 
 workflows:
   version: 2
