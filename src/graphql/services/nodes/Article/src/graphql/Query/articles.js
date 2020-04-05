@@ -11,19 +11,19 @@ async function articles(
     if (user) {
         const { data, errors } = await execute(
             gql`
-        {
-            user: userById(
-               id: ${user}
-            ) {
-                id
-                email
-                following {
-                    id
+                query($id: ID!) {
+                    user: userById(id: $id) {
+                        id
+                        email
+                        following {
+                            nodes {
+                                id
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    `,
-            { context: { user } }
+            `,
+            { variables: { id: user } }
         );
 
         if (errors && errors.length) {
@@ -42,7 +42,7 @@ async function articles(
     }
 
     if (feed) {
-        query.author = { $in: user.following.map((x) => x.id) };
+        query.author = { $in: user.nodes.map((x) => x.id) };
     }
 
     if (ids) {

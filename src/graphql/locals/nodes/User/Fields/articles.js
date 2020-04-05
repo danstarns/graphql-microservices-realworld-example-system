@@ -12,11 +12,6 @@ async function articles(root, { first, after }, { injections: { execute } }) {
                 edges {
                    node {
                         id
-                        author {
-                            id
-                            username
-                            image
-                        }
                         body
                         description
                         favoritesCount

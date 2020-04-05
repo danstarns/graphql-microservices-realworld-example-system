@@ -16,11 +16,6 @@ async function favoriteArticles(
                 edges {
                    node {
                         id
-                        author {
-                            id
-                            username
-                            image
-                        }
                         body
                         description
                         favoritesCount
