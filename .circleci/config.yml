@@ -12,37 +12,45 @@ jobs:
       - run: 
           name: Start Docker Network
           command: docker network create conduit_network
+      - run: 
+          name: Build nats
+          command: docker image pull nats
       - run:
           name: Start Nats
           command: |
-          docker image pull nats && \
           docker run \
           --publish 4222:4222 \
           --detach --name conduit_nats nats \
           --network conduit_network
+      - run: 
+          name: Build mongo
+          command: docker image pull mongo
       - run:
           name: Start Mongo
           command: |
-          docker image pull mongo && \
           docker run \
           --publish 27017:27017 \
           --detach --name conduit_mongo mongo \
           --network conduit_network
+      - run: 
+          name: Build Article
+          command: docker build -f ./src/graphql/services/nodes/Article/Dockerfile.test -t article
       - run:
           name: Start Article
           command: |
-          docker build -f ./src/graphql/services/nodes/Article/Dockerfile.test -t article && \
-          docker run \ 
+          docker run \
           --detach --name conduit_article article \
           --network conduit_network \
           -e NATS_URL='nats://conduit_nats:4222' \
           -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' \
           -e DEBUG='@Conduit-Article-Service:*' \
           -e NODE_ENV='test'
+      - run: 
+          name: Build Comment
+          command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment
       - run:
           name: Start Comment
           command: |
-          docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment && \
           docker run \ 
           --detach --name conduit_comment comment \
           --network conduit_network \
@@ -50,10 +58,12 @@ jobs:
           -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' \
           -e DEBUG='@Conduit-Comment-Service:*' \ 
           -e NODE_ENV='test'
+      - run: 
+          name: Build Gateway
+          command: docker build -f ./Dockerfile.test -t gateway
       - run:
           name: Start Gateway and test
           command: |
-          docker build -f ./Dockerfile.test -t gateway && \
           docker run \ 
           --detach --name conduit_gateway gateway \
           --network conduit_network \
