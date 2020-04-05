@@ -230,7 +230,7 @@ describe("Article.Query.articles", () => {
         });
 
         // eslint-disable-next-line no-shadow
-        const { query } = graphql({ user: user._id.toString() });
+        const { query } = await graphql({ user: user._id.toString() });
 
         const { data, errors } = await query({
             query: gql`
@@ -357,7 +357,7 @@ describe("Article.Query.articles", () => {
         });
 
         // eslint-disable-next-line no-shadow
-        const { query } = graphql({ user: user._id.toString() });
+        const { query } = await graphql({ user: user._id.toString() });
 
         const { data, errors } = await query({
             query: gql`

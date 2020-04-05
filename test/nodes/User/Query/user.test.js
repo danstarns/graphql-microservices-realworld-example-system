@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 const { expect } = require("chai");
 const mongoose = require("mongoose");
-const { User } = require("../../../models/index.js");
+const { User, Article } = require("../../../models/index.js");
 const { MONGODB_URI } = require("../../../../src/config.js");
 const graphql = require("../../../graphql.js");
 
