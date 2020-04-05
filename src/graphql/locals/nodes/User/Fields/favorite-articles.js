@@ -36,8 +36,7 @@ async function favoriteArticles(
         {
             variables: {
                 ids: root.favorites.articles.map((x) => x.toString())
-            },
-            context: { user: root.id }
+            }
         }
     );
 
