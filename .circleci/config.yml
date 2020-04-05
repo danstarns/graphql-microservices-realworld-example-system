@@ -17,31 +17,31 @@ jobs:
           command: docker image pull nats
       - run:
           name: Start Nats
-          command: docker run --publish 4222:4222 --detach --name conduit_nats nats --network conduit_network
+          command: docker run --network conduit_network --publish 4222:4222 --detach --name conduit_nats nats
       - run:
           name: Build mongo
           command: docker image pull mongo
       - run:
           name: Start Mongo
-          command: docker run --publish 27017:27017 --detach --name conduit_mongo mongo --network conduit_network
+          command: docker run --network conduit_network --publish 27017:27017 --detach --name conduit_mongo mongo
       - run:
           name: Build Article
           command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t article ./src/graphql/services/nodes/Article/
       - run:
           name: Start Article
-          command: docker run --detach --name conduit_article article --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Article-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --detach --name conduit_article article -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Article-Service:*' -e NODE_ENV='test'
       - run:
           name: Build Comment
           command: docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment ./src/graphql/services/nodes/Comment/
       - run:
           name: Start Comment
-          command: docker run --detach --name conduit_comment comment --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Comment-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --detach --name conduit_comment comment -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Comment-Service:*' -e NODE_ENV='test'
       - run:
           name: Build Gateway
           command: docker build -f ./Dockerfile.test -t gateway .
       - run:
           name: Start Gateway and test
-          command: docker run --name conduit_gateway gateway --network conduit_network -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test'
+          command: docker run --network conduit_network --name conduit_gateway gateway -e NATS_URL='nats://conduit_nats:4222' -e MONGODB_URI='mongodb://conduit_mongo:27017/Test' -e DEBUG='@Conduit-Gateway-Service:*' -e NODE_ENV='test'
 
 workflows:
   version: 2
