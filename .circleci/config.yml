@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Start Nats
           command: |
-          docker image pull nats
+          docker image pull nats && \
           docker run \
           --publish 4222:4222 \
           --detach --name conduit_nats nats \
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Start Mongo
           command: |
-          docker image pull mongo
+          docker image pull mongo && \
           docker run \
           --publish 27017:27017 \
           --detach --name conduit_mongo mongo \
@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Start Article
           command: |
-          docker build -f ./src/graphql/services/nodes/Article/Dockerfile.test -t article
+          docker build -f ./src/graphql/services/nodes/Article/Dockerfile.test -t article && \
           docker run \ 
           --detach --name conduit_article article \
           --network conduit_network \
@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Start Comment
           command: |
-          docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t article
+          docker build -f ./src/graphql/services/nodes/Comment/Dockerfile.test -t comment && \
           docker run \ 
           --detach --name conduit_comment comment \
           --network conduit_network \
@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Start Gateway and test
           command: |
-          docker build -f ./Dockerfile.test -t gateway
+          docker build -f ./Dockerfile.test -t gateway && \
           docker run \ 
           --detach --name conduit_gateway gateway \
           --network conduit_network \
