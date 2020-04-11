@@ -14,7 +14,7 @@ This codebase was created to demonstrate a distributed GraphQL schema built with
 # Contributing
 
 1. [Eslint](https://eslint.org/) => `./eslintrc`
-2. [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) => `PR|>master`
+2. [Git Trunk](https://trunkbaseddevelopment.com/) => `PR|>master`
 3. [Tests](#testing)
 
 # Getting started
