@@ -34,11 +34,7 @@ async function viewerHasFavorited(
         throw new Error(errors[0].message);
     }
 
-    if (!data.favoriteArticles) {
-        return false;
-    }
-
-    const articles = data.favoriteArticles.edges.map((x) => x.node.id);
+    const articles = data.userById.favoriteArticles.edges.map((x) => x.node.id);
 
     if (articles.includes(id)) {
         return true;
