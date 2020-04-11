@@ -65,8 +65,10 @@ The foundations of this schema were ported from [rails-graphql-realworld-example
 
 ### Query
 ![GraphQL Voyager Mutation View](./assets/query.jpg)
+
 ### Mutation
 ![GraphQL Voyager Mutation View](./assets/mutation.jpg)
+
 ### SDL
 ```graphql
 directive @Auth(input: AuthInput) on FIELD_DEFINITION
@@ -143,11 +145,6 @@ type CreateUserPayload {
   user: User
 }
 
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
-`date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
-8601 standard for representation of dates and times using the Gregorian calendar.
-"""
 scalar DateTime
 
 input DeleteArticleInput {
@@ -176,6 +173,7 @@ type FavoriteArticlePayload {
 
 type FollowersConnection {
   totalCount: Int!
+  nodes: [User]
 }
 
 input FollowUserInput {
@@ -187,18 +185,20 @@ type FollowUserPayload {
 }
 
 type Mutation {
+  addComment(input: AddCommentInput!): AddCommentPayload
+  deleteComment(input: DeleteCommentInput!): DeleteCommentPayload
   createUser(input: CreateUserInput!): CreateUserPayload
   signInUser(input: SignInUserInput!): SignInUserPayload
   followUser(input: FollowUserInput!): FollowUserPayload
   unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload
+  pushFavoriteArticle(article: ID!): User
+  pullFavoriteArticle(article: ID!): User
   createArticle(input: CreateArticleInput!): CreateArticlePayload
   deleteArticle(input: DeleteArticleInput!): DeleteArticlePayload
   updateArticle(input: UpdateArticleInput!): UpdateArticlePayload
   favoriteArticle(input: FavoriteArticleInput!): FavoriteArticlePayload
   unfavoriteArticle(input: UnfavoriteArticleInput!): UnfavoriteArticlePayload
-  addComment(input: AddCommentInput!): AddCommentPayload
-  deleteComment(input: DeleteCommentInput!): DeleteCommentPayload
 }
 
 type PageInfo {
@@ -207,8 +207,12 @@ type PageInfo {
 }
 
 type Query {
+  articleComments(article: ID!): [Comment]
   user(username: String!): User
+  userById(id: ID!): User
+  articleUserFavoriteCount(article: ID!): Int
   article(slug: String!): Article
+  articleById(id: ID!): Article
   tags: [String!]!
   viewer: Viewer
   articles(first: Int = 10, after: String = "1", tag: String, forUser: Boolean, feed: Boolean, ids: [String]): ArticleConnection!
@@ -277,6 +281,7 @@ type User {
   articles(first: Int = 10, after: String = "1"): ArticleConnection!
   favoriteArticles(first: Int = 10, after: String = "1"): ArticleConnection!
   followers: FollowersConnection!
+  following: FollowersConnection!
 }
 
 type UserEdge {
