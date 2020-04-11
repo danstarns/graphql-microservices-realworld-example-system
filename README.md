@@ -1,7 +1,5 @@
 # GraphQL Microservices RealWorld Example System
 
-> Currently under development 👷‍♂️
-
 [![CircleCI](https://circleci.com/gh/danstarns/graphql-microservices-realworld-example-system/tree/master.svg?style=svg)](https://app.circleci.com/pipelines/github/danstarns/graphql-microservices-realworld-example-system?branch=master)
 [![CircleCI](https://img.shields.io/github/license/danstarns/idio-graphql)](https://github.com/danstarns/graphql-microservices-realworld-example-system/blob/master/LICENSE)
 
@@ -15,19 +13,49 @@ This codebase was created to demonstrate a distributed GraphQL schema built with
 
 # Contributing
 
-> Currently under development 👷‍♂️
-
 1. [Eslint](https://eslint.org/) => `./eslintrc`
 2. [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) => `PR|>master`
 3. [Tests](#testing)
 
 # Getting started
 
-TBA
+> Docker is the best way to start
 
+1. Setup [Environment Variables](#Environment-Variables)
+2. `docker-compose up`
+3. Start client [here](https://github.com/dostu/react-apollo-realworld-example-app)
 # Environment Variables
 
-TBA 
+> To start, copy `./.env.example`, in each service, to `./.env`.
+
+## Gateway Service 
+
+```
+NATS_URL=nats://host.docker.internal:4222
+PORT=3000
+MONGODB_URI=mongodb://host.docker.internal:27017/gateway
+DEBUG=@Conduit-Gateway-Service:*
+SECRET=supersecret
+NODE_ENV=develop
+```
+
+## Article Service
+
+```
+NATS_URL=nats://host.docker.internal:4222
+MONGODB_URI=mongodb://host.docker.internal:27017/Conduit
+DEBUG=@Conduit-Article-Service:*
+NODE_ENV=develop
+```
+
+## Comment Service
+
+```
+NATS_URL=nats://host.docker.internal:4222
+MONGODB_URI=mongodb://host.docker.internal:27017/Conduit
+DEBUG=@Conduit-Comment-Service:*
+NODE_ENV=develop
+```
 
 # GraphQL Schema
 
