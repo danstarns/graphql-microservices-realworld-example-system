@@ -20,6 +20,9 @@ async function articles(root, { first, after }, { injections: { execute } }) {
                         title
                         createdAt
                         viewerHasFavorited
+                        author {
+                            id
+                        }
                    }
                 }
                 pageInfo {

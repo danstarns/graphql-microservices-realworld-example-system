@@ -9,6 +9,9 @@ async function comments({ id }, args, { injections: { execute } }) {
                     body
                     createdAt
                     updatedAt
+                    author {
+                        id
+                    }
                 }
             }
         `,

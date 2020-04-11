@@ -13,6 +13,9 @@ async function article(root, args, { injections: { execute } }) {
                     tagList
                     updatedAt
                     createdAt
+                    author {
+                        id
+                    }
                 }
             }
         `,

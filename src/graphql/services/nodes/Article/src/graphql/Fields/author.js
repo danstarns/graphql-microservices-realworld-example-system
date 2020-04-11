@@ -16,7 +16,7 @@ async function author(root, args, { injections: { execute } }) {
         `,
         {
             variables: {
-                id: root.author
+                id: root.author.id || root.author
             }
         }
     );

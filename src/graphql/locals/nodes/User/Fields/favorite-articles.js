@@ -23,7 +23,10 @@ async function favoriteArticles(
                         tagList
                         title
                         createdAt
-                        viewerHasFavorited                 
+                        viewerHasFavorited
+                        author {
+                            id
+                        }                
                     }
                 }
                 pageInfo {
