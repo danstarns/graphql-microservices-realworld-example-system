@@ -17,7 +17,7 @@ type User {
     ): ArticleConnection! 
 
     followers: FollowersConnection!
-    following: FollowersConnection! # TODO test
+    following: FollowersConnection!
 }
 
 input CreateUserInput {

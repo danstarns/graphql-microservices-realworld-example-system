@@ -308,4 +308,77 @@ describe("User.Query.user", () => {
 
         expect(data.user.followers.totalCount).equal(1);
     });
+
+    it("should get a user and return its followers", async () => {
+        const followee = await User.create({
+            image: "http://cat.com",
+            username: "Follower",
+            bio: "Following always...",
+            email: "followe@followe.com",
+            password: "secretHASH",
+            favorites: {
+                articles: []
+            }
+        });
+
+        const user = await User.create({
+            image: "http://cat.com",
+            username: "Tester",
+            bio: "Testing always...",
+            email: "test@test.com",
+            password: "secretHASH",
+            following: [followee._id],
+            favorites: {
+                articles: []
+            }
+        });
+
+        const { query } = await graphql({ user: user._id.toString() });
+
+        const { data, errors } = await query({
+            query: gql`
+                query($username: String!) {
+                    user(username: $username) {
+                        id
+                        image
+                        bio
+                        email
+                        followedByViewer
+                        following {
+                            nodes {
+                                id
+                            }
+                        }
+                    }
+                }
+            `,
+            variables: {
+                username: user.username
+            }
+        });
+
+        expect(errors).to.equal(undefined);
+
+        expect(data).to.be.a("object");
+
+        expect(data.user.id).to.be.equal(user._id.toString());
+
+        expect(data.user.image).to.be.equal(user.image);
+
+        expect(data.user.bio).to.be.equal(user.bio);
+
+        expect(data.user.email).to.be.equal(user.email);
+
+        expect(data.user.followedByViewer).to.be.equal(false);
+
+        expect(data.user.following)
+            .to.be.a("object")
+            .to.have.property("nodes")
+            .to.be.a("array")
+            .lengthOf(1);
+
+        const [{ id }] = data.user.following.nodes;
+
+        expect(id).to.equal(followee._id.toString());
+    });
 });
