@@ -88,7 +88,7 @@ type FollowUserPayload {
 
 type Query {
     user(username: String!): User
-    userById(id: ID!): User # TODO test 
+    userById(id: ID!): User
     articleUserFavoriteCount(article: ID!): Int
 }
 
