@@ -89,7 +89,7 @@ type FollowUserPayload {
 type Query {
     user(username: String!): User
     userById(id: ID!): User # TODO test 
-    articleUserFavoriteCount(article: ID!): Int # TODO test
+    articleUserFavoriteCount(article: ID!): Int
 }
 
 type Mutation {
