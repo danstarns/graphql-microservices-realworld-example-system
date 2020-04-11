@@ -99,5 +99,5 @@ type Mutation {
     unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload @Auth(input: {required: true})
     updateUser(input: UpdateUserInput!): UpdateUserPayload @Auth(input: {required: true})
     pushFavoriteArticle(article: ID!): User @Auth(input: {required: true}) # TODO test
-    pullFavoriteArticle(article: ID!): User @Auth(input: {required: true}) # TODO test
+    pullFavoriteArticle(article: ID!): User @Auth(input: {required: true})
 }
