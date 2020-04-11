@@ -33,7 +33,7 @@ This codebase was created to demonstrate a distributed GraphQL schema built with
 ```
 NATS_URL=nats://host.docker.internal:4222
 PORT=3000
-MONGODB_URI=mongodb://host.docker.internal:27017/gateway
+MONGODB_URI=mongodb://host.docker.internal:27017/Conduit
 DEBUG=@Conduit-Gateway-Service:*
 SECRET=supersecret
 NODE_ENV=develop
