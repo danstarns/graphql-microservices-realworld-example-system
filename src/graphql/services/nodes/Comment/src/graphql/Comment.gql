@@ -26,7 +26,7 @@ type DeleteCommentPayload {
 }
 
 type Query {
-    articleComments(article: ID!): [Comment] # TODO test
+    articleComments(article: ID!): [Comment]
 }
 
 type Mutation {
