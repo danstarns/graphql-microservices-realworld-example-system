@@ -31,10 +31,12 @@ function start() {
     return new Promise(async (resolve, reject) => {
         debug(`Starting Server`);
 
-        const { schema } = await gateway.start();
+        const { typeDefs, resolvers, schemaDirectives } = await gateway.start();
 
         const server = new ApolloServer({
-            schema,
+            typeDefs,
+            resolvers,
+            schemaDirectives,
             playground: NODE_ENV === "develop",
             context: async ({ req, res }) => {
                 const authorization = req.header("authorization");

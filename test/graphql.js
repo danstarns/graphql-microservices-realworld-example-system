@@ -15,15 +15,20 @@ const gateway = new GraphQLGateway(
     { nodeID: "conduit_gateway", transporter: NATS_URL, logLevel: "error" }
 );
 
-let schema;
+let started;
+let typeDefs;
+let resolvers;
+let schemaDirectives;
 
 async function testClient({ user } = {}) {
-    if (!schema) {
-        ({ schema } = await gateway.start());
+    if (!started) {
+        ({ typeDefs, resolvers, schemaDirectives } = await gateway.start());
     }
 
     const server = new ApolloServer({
-        schema,
+        typeDefs,
+        resolvers,
+        schemaDirectives,
         context: () => ({ user })
     });
 
