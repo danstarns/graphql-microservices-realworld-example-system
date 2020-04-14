@@ -23,6 +23,8 @@ let schemaDirectives;
 async function testClient({ user } = {}) {
     if (!started) {
         ({ typeDefs, resolvers, schemaDirectives } = await gateway.start());
+
+        started = true;
     }
 
     const server = new ApolloServer({
