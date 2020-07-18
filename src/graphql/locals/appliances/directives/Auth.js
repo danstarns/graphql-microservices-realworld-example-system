@@ -1,4 +1,4 @@
-const { SchemaDirectiveVisitor } = require("graphql-tools");
+const { SchemaDirectiveVisitor } = require("@graphql-tools/utils");
 const { defaultFieldResolver } = require("graphql");
 const { IdioDirective } = require("idio-graphql");
 const { gql, AuthenticationError } = require("apollo-server-express");

@@ -39,6 +39,8 @@ async function favoriteArticle(
             article
         };
     } catch (error) {
+        console.error(error);
+
         return {
             article: null
         };

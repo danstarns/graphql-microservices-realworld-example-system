@@ -6,7 +6,6 @@ RUN npm i cross-env -g
 RUN npm i node-gyp -g
 
 COPY ./package.json ./package.json
-COPY ./package-lock.json ./package-lock.json
 
 RUN npm i
 
