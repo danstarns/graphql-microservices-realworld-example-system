@@ -24,9 +24,9 @@
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "graphql-tag": "^2.10.4",
-    "idio-graphql": "^3.2.15",
-    "moleculer": "^0.14.7",
-    "mongoose": "^5.9.25",
+    "idio-graphql": "^3.2.18",
+    "moleculer": "^0.14.8",
+    "mongoose": "^5.9.26",
     "mongoose-paginate-v2": "^1.3.9",
     "nats": "^1.4.9"
   },
