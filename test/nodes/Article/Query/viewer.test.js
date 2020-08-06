@@ -99,6 +99,10 @@ describe("Article.Query.viewer", () => {
             variables: { first: 10, after: "1" }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.viewer.user.id).to.equal(user._id.toString());

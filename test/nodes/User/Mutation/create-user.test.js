@@ -63,6 +63,10 @@ describe("User.Mutation.createUser", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.createUser.errors)
@@ -102,6 +106,10 @@ describe("User.Mutation.createUser", () => {
                 CreateUserInput
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 

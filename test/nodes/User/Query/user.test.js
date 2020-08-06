@@ -58,6 +58,10 @@ describe("User.Query.user", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data).to.be.a("object");
@@ -120,6 +124,10 @@ describe("User.Query.user", () => {
                 username: user.username
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 
@@ -214,6 +222,10 @@ describe("User.Query.user", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data).to.be.a("object");
@@ -292,6 +304,10 @@ describe("User.Query.user", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data).to.be.a("object");
@@ -356,6 +372,10 @@ describe("User.Query.user", () => {
                 username: user.username
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 

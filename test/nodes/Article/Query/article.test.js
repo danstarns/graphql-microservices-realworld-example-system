@@ -89,6 +89,10 @@ describe("Article.Query.article", () => {
             variables: { slug }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.article).to.be.a("object");

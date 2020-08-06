@@ -98,6 +98,10 @@ describe("Article.Query.articles", () => {
             variables: { first: 3, after: "1", tag: "beer" }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.articles).to.be.a("object");
@@ -263,6 +267,10 @@ describe("Article.Query.articles", () => {
             variables: { first: 3, after: "1", forUser: true }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.articles).to.be.a("object");
@@ -390,6 +398,10 @@ describe("Article.Query.articles", () => {
             variables: { first: 3, after: "1", feed: true }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.articles).to.be.a("object");
@@ -513,6 +525,10 @@ describe("Article.Query.articles", () => {
                 ids: [article1._id.toString(), article2._id.toString()]
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 

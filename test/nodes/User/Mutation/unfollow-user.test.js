@@ -107,6 +107,10 @@ describe("User.Mutation.unfollowUser", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         const { username, email } = data.unfollowUser.user;

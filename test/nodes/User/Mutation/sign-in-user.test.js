@@ -51,6 +51,10 @@ describe("User.Mutation.signInUser", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.signInUser.errors)
@@ -95,6 +99,10 @@ describe("User.Mutation.signInUser", () => {
                 SignInUserInput
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 
@@ -144,6 +152,10 @@ describe("User.Mutation.signInUser", () => {
                 SignInUserInput
             }
         });
+
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
 
         expect(errors).to.equal(undefined);
 

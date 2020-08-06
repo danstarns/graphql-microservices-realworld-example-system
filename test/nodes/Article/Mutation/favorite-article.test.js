@@ -103,6 +103,10 @@ describe("Article.Mutation.favoriteArticle", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         expect(data.favoriteArticle).to.be.a("object");

@@ -95,6 +95,10 @@ describe("User.Mutation.updateUser", () => {
             }
         });
 
+        if (errors) {
+            console.log(JSON.stringify(errors, null, 2));
+        }
+
         expect(errors).to.equal(undefined);
 
         const { id, email } = data.updateUser.user;
