@@ -5,7 +5,6 @@ WORKDIR /app
 RUN npm i cross-env -g
 
 COPY ./package.json ./package.json
-COPY ./package-lock.json ./package-lock.json
 
 RUN npm i
 
