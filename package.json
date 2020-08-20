@@ -51,7 +51,7 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "graphql-voyager": "^1.0.0-rc.31",
-    "idio-graphql": "^3.2.21",
+    "idio-graphql": "^4.0.1",
     "jsonwebtoken": "^8.5.1",
     "moleculer": "^0.14.8",
     "mongoose": "^5.9.27",
